@@ -2,13 +2,20 @@
 <html>
 <head>
     <title>Upload CSV Files</title>
+    <script>
+        function downloadCSV() {
+            // Submit the form when the user clicks the download button
+            document.getElementById('upload-form').submit();
+        }
+    </script>
 </head>
 <body>
     <h2>Upload CSV Files</h2>
-    <form method="post" enctype="multipart/form-data">
+    <form id="upload-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>
     </form>
+    <button onclick="downloadCSV()">Download CSV</button>
 </body>
 </html>

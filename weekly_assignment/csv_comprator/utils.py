@@ -1,10 +1,26 @@
-import csv
+import pandas as pd
+from datetime import datetime
 
-def compare_csv_files(file1, file2):
-    csv1_data = [row.decode('utf-8') for row in file1.readlines()]
-    csv2_data = [row.decode('utf-8') for row in file2.readlines()]
+def find_corrections(a_csv, b_csv):
+    try:
+        # Read CSV files into pandas DataFrames
+        dataframe_of_reference = pd.read_csv(a_csv)
+        dataframe_of_input = pd.read_csv(b_csv)
 
-    if csv1_data == csv2_data:
-        return "CSV files are identical."
-    else:
-        return "CSV files are different."
+        # Find differences between the two DataFrames
+        differences = []
+        for row in range(len(dataframe_of_reference)):
+            for column in range(len(dataframe_of_reference.columns)):
+                if dataframe_of_reference.iloc[row, column] != dataframe_of_input.iloc[row, column]:
+                    differences.append(((row+1, column+1), dataframe_of_reference.iloc[row, column], dataframe_of_input.iloc[row, column]))
+
+        # Return the list of differences
+        return differences
+
+    except FileNotFoundError as e:
+        print(f"File not found error: {e}")
+        return None
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+
