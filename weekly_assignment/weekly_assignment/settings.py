@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'csv_comprator.apps.CsvCompratorConfig'  # csv_comprator --> apps.py --> CsvCompratorConfig (class)
 ]
 
 MIDDLEWARE = [
